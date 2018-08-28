@@ -27,7 +27,7 @@ def copia_arquivos(orig, dest):
     for _, _, arquivo in os.walk(orig):
         arquivo = arquivo
     i=0
-    for a in range(1, len(arquivo)):
+    for a in range(0, len(arquivo)):
         a = str(arquivo[i])
         novoArquivo = remover_acentos(a.strip())
         caminho = orig.strip()+a
