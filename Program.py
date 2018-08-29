@@ -31,9 +31,9 @@ def copia_arquivos(orig, dest):
         a = str(arquivo[i])
         novoArquivo = remover_acentos(a.strip())
         caminho = orig.strip()+a
-        if os.path.isfile(caminho) and not os.path.exists(dest.strip()+novoArquivo.replace(" ","")):
-            shutil.copy(caminho, dest.strip()+novoArquivo.replace(" ",""))
-        print(dest.strip()+novoArquivo.replace(" ",""))
+        if os.path.isfile(caminho) and not os.path.exists(dest.strip()+novoArquivo.replace(" ","-")):
+            shutil.copy(caminho, dest.strip()+novoArquivo.replace(" ","-"))
+        print(dest.strip()+novoArquivo.replace(" ","-"))
         i+=1
 
 gera_pastas(_fonte)
