@@ -8,13 +8,13 @@ def remover_acentos(txt):
     return normalize('NFKD', txt).encode('ASCII', 'ignore').decode('ASCII')
 
 _fonte = "C:\Projetos\Restrita_v2\ARQUIVOS EM PDF_2018_ÁREA RESTRITA\\"
-_destino = "C:\\Projetos\\Restrita_v2\\pdfs-formatados\\"
+_destino = "C:\\Projetos\\Restrita_v2\\area-restrita\\website\\pdfs-formatados\\"
 
 def gera_pastas(root):
     for pasta in os.listdir(root):
         novoRoot = root+pasta+'\\'
         novoDestino = remover_acentos(novoRoot.replace(_fonte, "")).lower()
-        novoDestino = _destino+novoDestino
+        novoDestino = _destino+novoDestino.replace(" ","-")
 
         if os.path.isdir(novoRoot):
             print(novoRoot)
@@ -33,7 +33,7 @@ def copia_arquivos(orig, dest):
         caminho = orig.strip()+a
         if os.path.isfile(caminho) and not os.path.exists(dest.strip()+novoArquivo.replace(" ","")):
             shutil.copy(caminho, dest.strip()+novoArquivo.replace(" ",""))
-        print(caminho)
+        print(dest.strip()+novoArquivo.replace(" ",""))
         i+=1
 
 gera_pastas(_fonte)
