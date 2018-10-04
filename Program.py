@@ -3,12 +3,19 @@ import os
 import re
 from unicodedata import normalize
 
+_fonte = "C:\\Projetos\\Arquivos de midia\\Turma 1\\"
+_destino = "C:\\Projetos\\cpmed-euamocpmed\\src\\assets\\images\\turmas\\2018\\1\\"
 
 def remover_acentos(txt):
     return normalize('NFKD', txt).encode('ASCII', 'ignore').decode('ASCII')
 
-_fonte = "C:\Projetos\Restrita_v2\ARQUIVOS EM PDF_2018_ÁREA RESTRITA\\"
-_destino = "C:\\Projetos\\Restrita_v2\\area-restrita\\website\\pdfs-formatados\\"
+def preparaNomeArquivo(a):
+    _arquivo = a.replace(" ","-").replace(".","-").lower()
+    i=0
+    nomeArquivo = _arquivo[:-4]
+    extensaoArquivo = "." + _arquivo[len(nomeArquivo)+1:]
+    novoArquivo = remover_acentos(nomeArquivo + extensaoArquivo).strip()
+    return novoArquivo
 
 def gera_pastas(root):
     for pasta in os.listdir(root):
@@ -29,13 +36,14 @@ def copia_arquivos(orig, dest):
     i=0
     for a in range(0, len(arquivo)):
         a = str(arquivo[i])
-        novoArquivo = remover_acentos(a.strip())
         caminho = orig.strip()+a
-        if os.path.isfile(caminho) and not os.path.exists(dest.strip()+novoArquivo.replace(" ","-")):
-            shutil.copy(caminho, dest.strip()+novoArquivo.replace(" ","-"))
-        print(dest.strip()+novoArquivo.replace(" ","-"))
+        if os.path.isfile(caminho) and not os.path.exists(dest.strip()+preparaNomeArquivo(a)):
+            shutil.copy(caminho, dest.strip()+preparaNomeArquivo(a))
+        print(caminho, dest.strip()+preparaNomeArquivo(a))
         i+=1
 
 gera_pastas(_fonte)
+copia_arquivos(_fonte, _destino)
+
 
 
