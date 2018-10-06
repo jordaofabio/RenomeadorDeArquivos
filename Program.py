@@ -3,8 +3,17 @@ import os
 import re
 from unicodedata import normalize
 
-_fonte = "C:\\Projetos\\Arquivos de midia\\Turma 1\\"
-_destino = "C:\\Projetos\\cpmed-euamocpmed\\src\\assets\\images\\turmas\\2018\\1\\"
+def preparaCaminho(caminho):
+    caminho = caminho.replace("\\", "//")
+    if caminho[len(caminho)-1] != "/":
+        caminho = caminho + "//"
+    return caminho
+
+_fonte = input('Informe a pasta de origem:')
+_fonte = preparaCaminho(_fonte)
+
+_destino = input('Informe a pasta de destino:')
+_destino = preparaCaminho(_destino)
 
 def remover_acentos(txt):
     return normalize('NFKD', txt).encode('ASCII', 'ignore').decode('ASCII')
